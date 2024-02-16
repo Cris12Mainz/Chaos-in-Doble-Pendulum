@@ -1,0 +1,24 @@
+#!/usr/bin/env gnuplot
+set term pdf
+set output 'output.pdf'
+#LENGTH
+l = 1.0
+#GRAVITATIONAL ACCELERATION
+g = 9.81
+#TOLERANCE TIME
+tol = 10000*sqrt(l/g)
+#DIMENSION OF THE MATRIX IN 'DATA'
+dim = 500
+#SIDE OF THE SQUARE IN THE PLOT
+a = 6.2
+set autoscale xfix
+set autoscale yfix
+set autoscale cbfix
+set size square
+set palette rgb 33, 13, 10
+set title 'Flip time for different initial conditions'
+set xlabel '{/Symbol q_{1}}'
+set ylabel '{/Symbol q_{2}}'
+set cblabel 'log(t)'
+set view map
+splot 'DATA' matrix u (a*($1/(dim-1)-0.5)):(a*($2/(dim-1)-0.5)):($3<=tol ? log($3) : NaN) with image notitle
